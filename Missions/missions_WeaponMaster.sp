@@ -38,15 +38,11 @@ public void OnPluginStart()
 
 public Action onPlayerDeath(Event event, const char[] name, bool dontBroadcast){
 	int attacker = GetClientOfUserId(event.GetInt("attacker"));
-	bool killedWithPistol;
 	if(!isValidClient(attacker))
 		return;
 	char weaponName[64];
 	GetClientWeapon(attacker, weaponName, sizeof(weaponName));
-	if (StrContains(weaponName, "hkp2000", false) != -1 || StrContains(weaponName, "p250", false) != -1 || StrContains(weaponName, "glock", false) != -1 || StrContains(weaponName, "deagle", false) != -1 || StrContains(weaponName, "revolver", false) != -1 || StrContains(weaponName, "usp", false) != -1 || StrContains(weaponName, "tec9", false) != -1 || StrContains(weaponName, "fiveseven", false) != -1 || StrContains(weaponName, "cz75a", false) != -1 || StrContains(weaponName, "elite", false) != -1){
-		killedWithPistol = true;
-	}	
-	if(!killedWithPistol)
+	if (!(StrContains(weaponName, "hkp2000", false) != -1 || StrContains(weaponName, "p250", false) != -1 || StrContains(weaponName, "glock", false) != -1 || StrContains(weaponName, "deagle", false) != -1 || StrContains(weaponName, "revolver", false) != -1 || StrContains(weaponName, "usp", false) != -1 || StrContains(weaponName, "tec9", false) != -1 || StrContains(weaponName, "fiveseven", false) != -1 || StrContains(weaponName, "cz75a", false) != -1 || StrContains(weaponName, "elite", false) != -1))
 		return;
 	Mission_IncrementMissionProgress(attacker, uKey);
 }		
