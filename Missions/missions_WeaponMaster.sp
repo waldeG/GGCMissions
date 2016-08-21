@@ -23,6 +23,8 @@ public Plugin myinfo =
 
 char serverTag[16] = "GGC";
 char groupTag[64] = "Weapon Master";
+char groupTag2[64] = "Weapon Specialist";
+char groupTag3[64] = "Special Weapon Missions";
 
 char pistolUKey[64] = "pistol_master_5_100";
 char pistolUKey2[64] = "pistol_master_15_250";
@@ -43,6 +45,24 @@ char shotgunUKey3[64] = "shotgun_master_60_750";
 char sniperUKey[64] = "sniper_master_5_100";
 char sniperUKey2[64] = "sniper_master_15_350";
 char sniperUKey3[64] = "sniper_master_30_700";
+
+char dualsUKey[64] = "duals_specialist_10_200";
+char dualsUKey2[64] = "duals_specialist_25_450";
+char dualsUKey3[64] = "duals_specialist_50_900";
+
+char sawedoffUKey[64] = "sawedoff_specialist_5_100";
+char sawedoffUKey2[64] = "sawedoff_specialist_15_300";
+char sawedoffUKey3[64] = "sawedoff_specialist_30_700";
+
+char galilUKey[64] = "galil_specialist_15_100";
+char galilUKey2[64] = "galil_specialist_30_400";
+char galilUKey3[64] = "galil_specialist_50_600";
+
+char umpUKey[64] = "ump_specialist_10_100";
+char umpUKey2[64] = "ump_specialist_25_300";
+char umpUKey3[64] = "ump_specialist_40_450";
+
+char scoutUKey[64] = "scout_jumpheadshot_2_500";
 
 
 public void OnPluginStart()
@@ -67,11 +87,30 @@ public void OnPluginStart()
 	Missions_RegisterMission(sniperUKey2, "Sniper Master 2", "Kill 15 enemies with a sniper rifle", 15, 350, sniperUKey, groupTag, true);
 	Missions_RegisterMission(sniperUKey3, "Sniper Master 3", "Kill 30 enemies with a sniper rifle", 30, 700, sniperUKey2, groupTag, true);
 	
+	Missions_RegisterMission(dualsUKey, "Dual Barettas Specialist 1", "Kill 10 enemies with the dual barettas", 10, 200, "", groupTag2, true);
+	Missions_RegisterMission(dualsUKey2, "Dual Barettas Specialist 2", "Kill 25 enemies with the dual barettas", 25, 450, dualsUKey, groupTag2, true);
+	Missions_RegisterMission(dualsUKey3, "Dual Barettas Specialist 3", "Kill 50 enemies with the dual barettas", 50, 900, dualsUKey2, groupTag2, true);
+	
+	Missions_RegisterMission(sawedoffUKey, "Sawed Off Specialist 1", "Kill 5 enemies with the sawed off shotgun", 5, 100, "", groupTag2, true);
+	Missions_RegisterMission(sawedoffUKey2, "Sawed Off Specialist 2", "Kill 15 enemies with the sawed off shotgun", 15, 300, sawedoffUKey, groupTag2, true);
+	Missions_RegisterMission(sawedoffUKey3, "Sawed Off Specialist 3", "Kill 30 enemies with the sawed off shotgun", 30, 700, sawedoffUKey2, groupTag2, true);
+	
+	Missions_RegisterMission(galilUKey, "Galil Specialist 1", "Kill 15 enemies with the Galil AR", 15, 100, "", groupTag2, true);
+	Missions_RegisterMission(galilUKey2, "Galil Specialist 2", "Kill 30 enemies with the Galil AR", 30, 400, galilUKey, groupTag2, true);
+	Missions_RegisterMission(galilUKey3, "Galil Specialist 3", "Kill 50 enemies with the Galil AR", 50, 600, galilUKey2, groupTag2, true);
+	
+	Missions_RegisterMission(umpUKey, "UMP45 Specialist 1", "Kill 10 enemies with the UMP-45", 10, 100, "", groupTag2, true);
+	Missions_RegisterMission(umpUKey2, "UMP45 Specialist 2", "Kill 25 enemies with the UMP-45", 25, 300, umpUKey, groupTag2, true);
+	Missions_RegisterMission(umpUKey3, "UMP45 Specialist 3", "Kill 40 enemies with the UMP-45", 40, 400, umpUKey2, groupTag2, true);
+	
+	Missions_RegisterMission(scoutUKey, "Scout Jumpshot", "Kill 2 enemies with a headshot while being in the air", 2, 500, "", groupTag3, true);
+	
 	HookEvent("player_death", onPlayerDeath);
 }
 
 public Action onPlayerDeath(Event event, const char[] name, bool dontBroadcast){
 	int attacker = GetClientOfUserId(event.GetInt("attacker"));
+	bool headshot = event.GetBool("headshot");
 	if(!isValidClient(attacker))
 		return;
 	char weaponName[64];
@@ -94,8 +133,26 @@ public Action onPlayerDeath(Event event, const char[] name, bool dontBroadcast){
 		Mission_IncrementMissionProgress(attacker, shotgunUKey3);
 	}else if(isSniperKill(weaponName)){
 		Mission_IncrementMissionProgress(attacker, sniperUKey);
-		Mission_IncrementMissionProgress(attacker,sniperUKey2);
+		Mission_IncrementMissionProgress(attacker, sniperUKey2);
 		Mission_IncrementMissionProgress(attacker, sniperUKey3);
+	}else if(StrContains(weaponName, "elite", false) != -1){
+		Mission_IncrementMissionProgress(attacker, dualsUKey);
+		Mission_IncrementMissionProgress(attacker, dualsUKey2);
+		Mission_IncrementMissionProgress(attacker, dualsUKey3);
+	}else if(StrContains(weaponName, "galilar", false) != -1){
+		Mission_IncrementMissionProgress(attacker, galilUKey);
+		Mission_IncrementMissionProgress(attacker, galilUKey2);
+		Mission_IncrementMissionProgress(attacker, galilUKey3);
+	}else if(StrContains(weaponName, "ump45", false) != -1){
+		Mission_IncrementMissionProgress(attacker, umpUKey);
+		Mission_IncrementMissionProgress(attacker, umpUKey2);
+		Mission_IncrementMissionProgress(attacker, umpUKey3);
+	}else if(StrContains(weaponName, "sawedoff", false) != -1){
+		Mission_IncrementMissionProgress(attacker, sawedoffUKey);
+		Mission_IncrementMissionProgress(attacker, sawedoffUKey2);
+		Mission_IncrementMissionProgress(attacker, sawedoffUKey3);
+	}else if(headshot && StrContains(weaponName, "scout", false) != -1 && isUserInAir(attacker)){
+		Mission_IncrementMissionProgress(attacker, scoutUKey);
 	}
 }	
 
@@ -147,6 +204,14 @@ stock bool isValidClient(int client){
     
     return true;
 }
+
+stock bool isUserInAir(int user) 
+{ 
+    if(!(GetEntityFlags(user) & FL_ONGROUND)) 
+        return true;
+    else 
+        return false; 
+}  
 
 public void OnPluginEnd() {
 	Missions_Finalize();
