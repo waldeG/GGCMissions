@@ -115,6 +115,10 @@ public void onHardCompleted(int client, char mapName[64]){
 		return;
 	}
 	Mission_IncrementMissionProgress(client, uKey7);
-}	
+}
+
+public void OnPluginEnd() {
+	Missions_Finalize();
+}
 
 
