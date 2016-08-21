@@ -147,3 +147,8 @@ stock bool isValidClient(int client){
     
     return true;
 }
+
+public void OnPluginEnd() {
+	Missions_Finalize();
+}
+
