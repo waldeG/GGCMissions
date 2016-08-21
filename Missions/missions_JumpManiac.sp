@@ -138,3 +138,7 @@ stock float GetClientSpeed(int client) {
     GetEntPropVector(client, Prop_Data, "m_vecVelocity", fVelocity);
     return SquareRoot(Pow(fVelocity[0], 2.0) + Pow(fVelocity[1], 2.0));
 }
+
+public void OnPluginEnd() {
+    Missions_Finalize();
+}
