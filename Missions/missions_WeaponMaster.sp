@@ -205,9 +205,9 @@ stock bool isValidClient(int client){
     return true;
 }
 
-stock bool isUserInAir(int user) 
+stock bool isUserInAir(int client) 
 { 
-    if(!(GetEntityFlags(user) & FL_ONGROUND)) 
+    if(!(GetEntityFlags(client) & FL_ONGROUND)) 
         return true;
     else 
         return false; 
