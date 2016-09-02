@@ -72,8 +72,8 @@ public void OnPluginStart()
 	Missions_RegisterMission(pistolUKey3, "Pistol Master 3", "Kill 50 enemies with a pistol", 50, 700, pistolUKey2, groupTag, true);
 	
 	Missions_RegisterMission(submachineUKey, "SMG Master 1", "Kill 10 enemies with a Submachine Gun", 10, 100, "", groupTag, true);
-	Missions_RegisterMission(submachineUKey2, "SMG Master 2", "Kill 25 enemies with a Submachine Gun", 25, 300, submachineUKey, groupTag, true);
-	Missions_RegisterMission(submachineUKey3, "SMG Master 3", "Kill 50 enemies with a Submachine Gun", 50, 600, submachineUKey2, groupTag, true);
+	Missions_RegisterMission(submachineUKey2, "SMG Master 2", "Kill 25 enemies with a Submachine Gun", 25, 100, submachineUKey, groupTag, true);
+	Missions_RegisterMission(submachineUKey3, "SMG Master 3", "Kill 50 enemies with a Submachine Gun", 50, 100, submachineUKey2, groupTag, true);
 	
 	Missions_RegisterMission(rifleUKey, "Rifle Master 1", "Kill 20 enemies with an Assault Rifle", 20, 100, "", groupTag, true);
 	Missions_RegisterMission(rifleUKey2, "Rifle Master 2", "Kill 50 enemies with an Assault Rifle", 50, 250, rifleUKey, groupTag, true);
@@ -135,7 +135,8 @@ public Action onPlayerDeath(Event event, const char[] name, bool dontBroadcast){
 		Mission_IncrementMissionProgress(attacker, sniperUKey);
 		Mission_IncrementMissionProgress(attacker, sniperUKey2);
 		Mission_IncrementMissionProgress(attacker, sniperUKey3);
-	}else if(StrContains(weaponName, "elite", false) != -1){
+	}	
+	if(StrContains(weaponName, "elite", false) != -1){
 		Mission_IncrementMissionProgress(attacker, dualsUKey);
 		Mission_IncrementMissionProgress(attacker, dualsUKey2);
 		Mission_IncrementMissionProgress(attacker, dualsUKey3);
@@ -205,9 +206,9 @@ stock bool isValidClient(int client){
     return true;
 }
 
-stock bool isUserInAir(int client) 
+stock bool isUserInAir(int user) 
 { 
-    if(!(GetEntityFlags(client) & FL_ONGROUND)) 
+    if(!(GetEntityFlags(user) & FL_ONGROUND)) 
         return true;
     else 
         return false; 
