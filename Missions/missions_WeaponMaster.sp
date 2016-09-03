@@ -152,7 +152,7 @@ public Action onPlayerDeath(Event event, const char[] name, bool dontBroadcast){
 		Mission_IncrementMissionProgress(attacker, sawedoffUKey);
 		Mission_IncrementMissionProgress(attacker, sawedoffUKey2);
 		Mission_IncrementMissionProgress(attacker, sawedoffUKey3);
-	}else if(headshot && StrContains(weaponName, "scout", false) != -1 && isUserInAir(attacker)){
+	}else if(headshot && StrContains(weaponName, "ssg", false) != -1 && isUserInAir(attacker)){
 		Mission_IncrementMissionProgress(attacker, scoutUKey);
 	}
 }	
